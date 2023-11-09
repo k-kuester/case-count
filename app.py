@@ -105,8 +105,12 @@ def count(inp):
         else:
             count_dict[char] = 1
 
-    return count_dict
-            
+    for key in count_dict:
+        x = case_dict[key]
+        minus_dict[key] = x - count_dict[key]
+
+    return count_dict, minus_dict
+
 def server(input: Inputs, output: Outputs, session: Session):
     @output
     @render.text
