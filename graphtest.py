@@ -1,7 +1,8 @@
-#test_str = "Because I could not stop for Death - The Dews drew quivering and Chill - For only Gossamer, my Gown - My Tippet - only Tulle - We paused before a House that seemed A Swelling of the Ground - The Roof was scarcely visible - The Cornice - in the Ground - Since then - tis Centuries - and yet Feels shorter than the Day I first surmised the Horses Heads Were toward Eternity -"
-
-test_str = "This latent mine--these unlaunch'd voices--passionate powers, Wrath, argument, or praise, or comic leer, or prayer devout, (Not nonpareil, brevier, bourgeois, long primer merely,) These ocean waves arousable to fury and to death, Or sooth'd to ease and sheeny sun and sleep, Within the pallid slivers slumbering."
-#update: quads, caps
+#libraries
+import matplotlib
+import matplotlib.pyplot as plt
+import squarify # pip install squarify (algorithm for treemap)&lt;/pre&gt;
+ 
 case_dict = {
     ' ': 400,
     'e': 400,
@@ -84,7 +85,8 @@ count_dict = {}
 minus_dict = {}
 proportions_dict = {}
 count = 0
-#test_str = input("input text here [no caps]: ")
+
+test_str = input("input text here [no caps]: ")
 #convert string to list
 char_list = list(test_str.strip())
 
@@ -96,23 +98,26 @@ for char in char_list:
     else:
         count_dict[char] = 1
 
-print("\n sorts used:")
-print(count_dict)
 
 for key in count_dict:
     x = case_dict[key]
     minus_dict[key] = x - count_dict[key]
 
-print("\n sorts remaining:")
-print(minus_dict)
-print("\n")
-
 for key in count_dict:
     z = (count_dict[key] / case_dict[key]) 
     proportions_dict[key] = z
+# Create a dataset:
 
-print ("\n proportions:")
-print (proportions_dict)
-
-with open('count_dict.txt','w') as data:  
-      data.write(str(count_dict))
+my_values=list(int(proportions_dict.values()))
+ 
+# create a color palette, mapped to these values
+cmap = matplotlib.cm.Blues
+mini=min(my_values)
+maxi=max(my_values)
+norm = matplotlib.colors.Normalize(vmin=mini, vmax=maxi)
+colors = [cmap(norm(value)) for value in my_values]
+ 
+# Change color
+squarify.plot(sizes=my_values, alpha=.8, color=colors )
+plt.axis('off')
+plt.show()

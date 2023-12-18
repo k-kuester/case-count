@@ -1,1 +1,12 @@
-{'h': 1, 'e': 1, 'l': 3, 'o': 2, ' ': 1, 'w': 1, 'r': 1, 'd': 1}
+def server(input: Inputs, output: Outputs, session: Session):
+    @output
+    @render.text
+    def txt():
+        if (input.x()):
+            return count(input.x())
+
+app = App(app_ui, server)
+
+
+ui.input_text_area("x", "Input Text", placeholder="Enter text"),
+    ui.output_text("txt")
