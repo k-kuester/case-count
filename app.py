@@ -10,13 +10,6 @@ app_ui = ui.page_fluid(
         body {
             font-family: Times
             }
-        header {
-            padding: 20px;
-            text-align: right;
-            background: #1abc9c;
-            color: white;
-            font-size:30px;
-        }
         """
     ),
     ui.panel_title("Sorts Count"),
@@ -27,8 +20,7 @@ app_ui = ui.page_fluid(
             ui.output_data_frame("out_df"),
             ui.output_text("txt")
         )
-    ),
-    #ui.img(src='https://ibb.co/vvb3D3h', align = "right"),
+    )
 )
 
 def count(inp):
@@ -124,15 +116,6 @@ def count(inp):
         else:
             count_dict[char] = 1
 
-    count_dataset = pd.DataFrame(count_dict, index=[0])
-    #count_map = sns.load_dataset("count_dataset").pivot(index="sort", columns="count", values="amount")
-    
-    for key in count_dict:
-        x = case_dict[key]
-        minus_dict[key] = x - count_dict[key]
-
-    minus_dataset = pd.DataFrame(minus_dict, index=[0])
-
     return count_dict
 
 def mincount(inp):
@@ -227,9 +210,6 @@ def mincount(inp):
             count_dict[char] =  x + 1
         else:
             count_dict[char] = 1
-
-    count_dataset = pd.DataFrame(count_dict, index=[0])
-    #count_map = sns.load_dataset("count_dataset").pivot(index="sort", columns="count", values="amount")
     
     for key in count_dict:
         x = case_dict[key]
@@ -248,14 +228,4 @@ def server(input: Inputs, output: Outputs, session: Session):
         if  (input.radio() == "2"): 
             data = pd.DataFrame([mincount(input.x())])
             return render.DataGrid(data, width='90%')
-    @render.text
-    def txt():
-        if (input.x()):
-            #return pd.DataFrame.from_dict(count(input.x))
-            return count(input.x())
-    #def count_mapp(dict):
-        #if (input.x()):
-            #count(input.x())
-            #return sns.heatmap(count_map)
-
 app = App(app_ui, server)
