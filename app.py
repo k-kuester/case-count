@@ -3,8 +3,6 @@ from pathlib import Path
 import pandas as pd
 import seaborn as sns
 
-#df = pd.read_csv(Path(__file__).parent / "count_dict.csv")
-#dff = pd.read_csv(Path(__file__).parent / "minus_dict.csv")
 
 app_ui = ui.page_fluid(
     ui.tags.style(
@@ -12,14 +10,25 @@ app_ui = ui.page_fluid(
         body {
             font-family: Times
             }
+        header {
+            padding: 20px;
+            text-align: right;
+            background: #1abc9c;
+            color: white;
+            font-size:30px;
+        }
         """
     ),
-    ui.input_text_area("x", "Input Text", placeholder="Enter text"),
-    ui.output_data_frame("out_df"),
-    ui.output_data_frame("out_dff"),
-    #ui.output_plot("count_map"),
-    ui.output_text("txt")
-    
+    ui.panel_title("Sorts Count"),
+    ui.layout_sidebar(
+        ui.panel_sidebar(ui.input_radio_buttons( "radio", "", {"1": "sorts used", "2": "sorts remaining"}) ),
+        ui.panel_main(
+            ui.input_text_area("x","", placeholder="Enter text"),
+            ui.output_data_frame("out_df"),
+            ui.output_text("txt")
+        )
+    ),
+    #ui.img(src='https://ibb.co/vvb3D3h', align = "right"),
 )
 
 def count(inp):
@@ -106,7 +115,7 @@ def count(inp):
     count = 0
     #convert string to list
     char_list = list(inp)
-
+    
     #count up each sort in string
     for char in char_list:
         if char in count_dict.keys():
@@ -233,11 +242,12 @@ def server(input: Inputs, output: Outputs, session: Session):
     @output
     @render.data_frame
     def out_df():
+        if (input.radio()) == "1":
             data = pd.DataFrame([count(input.x())])
-            return render.DataGrid(data, width='50%')
-    def out_dff():
+            return render.DataGrid(data, width='90%')
+        if  (input.radio() == "2"): 
             data = pd.DataFrame([mincount(input.x())])
-            return render.DataGrid(data)
+            return render.DataGrid(data, width='90%')
     @render.text
     def txt():
         if (input.x()):

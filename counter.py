@@ -1,6 +1,7 @@
 #test_str = "Because I could not stop for Death - The Dews drew quivering and Chill - For only Gossamer, my Gown - My Tippet - only Tulle - We paused before a House that seemed A Swelling of the Ground - The Roof was scarcely visible - The Cornice - in the Ground - Since then - tis Centuries - and yet Feels shorter than the Day I first surmised the Horses Heads Were toward Eternity -"
 
-test_str = "This latent mine--these unlaunch'd voices--passionate powers, Wrath, argument, or praise, or comic leer, or prayer devout, (Not nonpareil, brevier, bourgeois, long primer merely,) These ocean waves arousable to fury and to death, Or sooth'd to ease and sheeny sun and sleep, Within the pallid slivers slumbering."
+#test_str = "This latent mine--these unlaunch'd voices--passionate powers, Wrath, argument, or praise, or comic leer, or prayer devout, (Not nonpareil, brevier, bourgeois, long primer merely,) These ocean waves arousable to fury and to death, Or sooth'd to ease and sheeny sun and sleep, Within the pallid slivers slumbering."
+test_str = "THIS is thy hour O Soul, thy free flight into the wordless, Away from books, away from art, the day erased, the lesson done, Thee fully forth emerging, silent, gazing, pondering the themes thou lovest best,Night, sleep, death and the stars."
 #update: quads, caps
 case_dict = {
     ' ': 400,
